@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html>
+<body>
+<p>blkadsf</p>
+<p>blkadsf</p>
+<p>blkadsf</p>
+<p>blkadsf</p>
+<p>blkadsf</p>
+<p>blkadsf</p>
+<p>blkadsf</p>
+<p>blkadsf</p>
+<p>blkadsf</p>
+<p>blkadsf</p>
+<p>blkadsf</p>
+<p>blkadsf</p>
+<p>blkadsf</p>
+<p>blkadsf</p>
+<p>blkadsf</p>
+<p>blkadsf</p>
+<canvas id="myCanvas" width="1000" height="600" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+<script>
+
+var c = document.getElementById("myCanvas");
+var ctx = c.getContext("2d");
+
+var x = 100, y = 200, width = 80, height = 150;
+var centerX = x + width/2, centerY = y + height/2;
+var angleToRotate = 0;
+
+var list = [];
+list.push( new Thing(20, 50, 0.05) );
+list.push( new Thing(20, 180, .25) );
+list.push( new Thing(20, 280, .001) );
+
+
+setInterval(doThing, 33);
+
+function doThing() {
+  ctx.fillStyle = "white";
+  ctx.fillRect(0,0,10000,10000);
+
+  for(var pos = 0; pos < list.length; pos++){
+    list[pos].move();
+    list[pos].draw();
+    //not working
+    if(list[pos].x + list[pos].width >= c.width) {
+      list[pos].x = c.x - list[pos].width;
+    }
+  }
+
+// //draw regular rect in black
+// ctx.fillStyle = "black";
+// ctx.fillRect(x, y, width, height);
+//
+// //now draw it again, rotated around it's center
+// //translate to center
+// ctx.save();
+// ctx.translate( centerX, centerY );
+// //rotate around center
+// ctx.rotate(angleToRotate);
+// ctx.fillStyle = "blue";
+//
+// //now draw it...since the origin is at the center
+// //the top-left corner is back and up by half
+// //a width and height...other options exist
+// ctx.fillRect(-width/2, -height/2, width, height);
+//
+// ctx.restore();
+// //ctx.rotate(-angleToRotate);
+// //ctx.translate(-centerX, -centerY);
+//
+// angleToRotate+=0.05;
+// x++;
+// centerX++;
+}
+
+function Thing(a, b, rotSpeed) {
+this.x = a;
+this.y = b;
+this.width = 50;
+this.height = 50;
+this.color = "red";
+this.angle = 0;
+this.rotationalSpeed = rotSpeed;
+this.speed = .5;
+
+this.move = function() {
+  this.x += this.speed;
+  this.angle += this.rotationalSpeed;
+}
+
+this.draw = function() {
+ctx.save();
+ctx.translate(this.x + this.width/2, this.y + this.height/2);
+ctx.rotate(this.angle);
+ctx.fillStyle = this.color; //for the color of the turning box
+ctx.fillRect(-this.width/2 , -this.height/2, this.width, this.height); //x,y,width,height
+ctx.restore();
+}
+
+}
+
+</script>
+
+<p><strong>Note:</strong> The canvas tag is not supported in Internet
+Explorer 8 and earlier versions.</p>
+
+</body>
+</html>
+tryhtml5_canvas_rotate_2
+Displaying tryhtml5_canvas_rotate_2.
